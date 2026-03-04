@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
+import path from 'path';
 import dotenv from 'dotenv';
 import { authRouter } from './modules/auth/routes';
 import { clientsRouter } from './modules/clients/routes';
@@ -12,7 +13,8 @@ import { reportsRouter } from './modules/reports/routes';
 import { transactionsRouter } from './modules/transactions/routes';
 import { startAlertCron } from './jobs/alertCron';
 
-dotenv.config({ path: '../../.env' });
+// Carrega .env na raiz do projeto (dev); em produção as variáveis vêm do ambiente (Coolify, etc.)
+dotenv.config({ path: path.resolve(__dirname, '../../.env') });
 
 const app = express();
 const PORT = process.env.PORT || 3001;
