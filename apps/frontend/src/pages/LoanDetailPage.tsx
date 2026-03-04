@@ -79,13 +79,13 @@ export default function LoanDetailPage() {
   const installments = loan.installments || [];
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 animate-fade-in">
       {/* Header */}
       <div className="flex items-center gap-3">
         <Button variant="ghost" size="icon" onClick={() => navigate('/loans')}><ArrowLeft className="w-4 h-4" /></Button>
         <div className="flex-1">
           <div className="flex items-center gap-3 flex-wrap">
-            <h1 className="text-2xl font-bold">{loan.clients?.name}</h1>
+            <h1 className="text-2xl font-bold font-display">{loan.clients?.name}</h1>
             <Badge variant={s.variant}>{s.label}</Badge>
           </div>
           <div className="flex items-center gap-4 mt-1 text-sm text-muted-foreground flex-wrap">
@@ -99,15 +99,15 @@ export default function LoanDetailPage() {
 
       {/* Summary Cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <Card><CardContent className="p-4"><p className="text-sm text-muted-foreground">Total a Pagar</p><p className="text-xl font-bold mt-1">{formatCurrency(Number(loan.total_amount))}</p></CardContent></Card>
-        <Card><CardContent className="p-4"><p className="text-sm text-muted-foreground">Valor da Parcela</p><p className="text-xl font-bold mt-1">{formatCurrency(Number(loan.installment_amount))}</p></CardContent></Card>
-        <Card><CardContent className="p-4"><p className="text-sm text-muted-foreground">Parcelas Pagas</p><p className="text-xl font-bold mt-1 text-emerald-500">{installments.filter((i: any) => i.status === 'paid').length}/{loan.total_installments}</p></CardContent></Card>
-        <Card><CardContent className="p-4"><p className="text-sm text-muted-foreground">Total Recebido</p><p className="text-xl font-bold mt-1 text-emerald-500">{formatCurrency(installments.reduce((s: number, i: any) => s + Number(i.paid_amount), 0))}</p></CardContent></Card>
+        <Card className="shadow-card animate-fade-in-up opacity-0 [animation-fill-mode:forwards]" style={{ animationDelay: '50ms' }}><CardContent className="p-4"><p className="text-sm text-muted-foreground">Total a Pagar</p><p className="text-xl font-bold mt-1 font-display">{formatCurrency(Number(loan.total_amount))}</p></CardContent></Card>
+        <Card className="shadow-card animate-fade-in-up opacity-0 [animation-fill-mode:forwards]" style={{ animationDelay: '100ms' }}><CardContent className="p-4"><p className="text-sm text-muted-foreground">Valor da Parcela</p><p className="text-xl font-bold mt-1 font-display">{formatCurrency(Number(loan.installment_amount))}</p></CardContent></Card>
+        <Card className="shadow-card animate-fade-in-up opacity-0 [animation-fill-mode:forwards]" style={{ animationDelay: '150ms' }}><CardContent className="p-4"><p className="text-sm text-muted-foreground">Parcelas Pagas</p><p className="text-xl font-bold mt-1 text-chart-2">{installments.filter((i: any) => i.status === 'paid').length}/{loan.total_installments}</p></CardContent></Card>
+        <Card className="shadow-card animate-fade-in-up opacity-0 [animation-fill-mode:forwards]" style={{ animationDelay: '200ms' }}><CardContent className="p-4"><p className="text-sm text-muted-foreground">Total Recebido</p><p className="text-xl font-bold mt-1 text-chart-2">{formatCurrency(installments.reduce((s: number, i: any) => s + Number(i.paid_amount), 0))}</p></CardContent></Card>
       </div>
 
       {/* Installments Table */}
-      <Card>
-        <CardHeader><CardTitle>Parcelas</CardTitle></CardHeader>
+      <Card className="shadow-card">
+        <CardHeader><CardTitle className="font-display">Parcelas</CardTitle></CardHeader>
         <CardContent className="p-0">
           <Table>
             <TableHeader>
@@ -128,7 +128,7 @@ export default function LoanDetailPage() {
                 const daysOverdue = inst.status === 'overdue' ?
                   Math.floor((new Date(today + 'T00:00:00').getTime() - new Date(inst.due_date + 'T00:00:00').getTime()) / 86400000) : 0;
                 return (
-                  <TableRow key={inst.id}>
+                  <TableRow key={inst.id} className="transition-colors duration-150 hover:bg-muted/60">
                     <TableCell className="font-medium">{inst.installment_no}</TableCell>
                     <TableCell>{formatDate(inst.due_date)}</TableCell>
                     <TableCell>{formatCurrency(Number(inst.amount))}</TableCell>
@@ -170,7 +170,7 @@ export default function LoanDetailPage() {
             <div className="p-3 rounded-lg bg-muted/50 text-sm">
               <div className="flex justify-between"><span>Valor da Parcela:</span><span className="font-medium">{formatCurrency(Number(payDialog?.amount || 0))}</span></div>
               {Number(payDialog?.paid_amount || 0) > 0 && (
-                <div className="flex justify-between mt-1"><span>Já Pago:</span><span className="font-medium text-emerald-500">{formatCurrency(Number(payDialog?.paid_amount))}</span></div>
+                <div className="flex justify-between mt-1"><span>Já Pago:</span><span className="font-medium text-chart-2">{formatCurrency(Number(payDialog?.paid_amount))}</span></div>
               )}
               <div className="flex justify-between mt-1"><span>Restante:</span><span className="font-bold">{formatCurrency(Number(payDialog?.amount || 0) - Number(payDialog?.paid_amount || 0))}</span></div>
             </div>

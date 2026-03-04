@@ -170,17 +170,17 @@ export default function ReportsPage() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 animate-fade-in">
       <div>
-        <h1 className="text-2xl font-bold tracking-tight">Relatórios</h1>
+        <h1 className="text-2xl font-bold tracking-tight font-display">Relatórios</h1>
         <p className="text-muted-foreground">Gere relatórios em PDF para análise</p>
       </div>
 
       <div className="grid lg:grid-cols-2 gap-6">
         {/* General Report */}
-        <Card>
+        <Card className="shadow-card animate-fade-in-up opacity-0 [animation-fill-mode:forwards] [animation-delay:80ms]">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2"><FileText className="w-5 h-5" /> Relatório Geral</CardTitle>
+            <CardTitle className="flex items-center gap-2 font-display"><FileText className="w-5 h-5" /> Relatório Geral</CardTitle>
             <CardDescription>Gere um relatório completo com todos os empréstimos, pagamentos e inadimplentes</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -211,9 +211,9 @@ export default function ReportsPage() {
         </Card>
 
         {/* Client Report */}
-        <Card>
+        <Card className="shadow-card animate-fade-in-up opacity-0 [animation-fill-mode:forwards] [animation-delay:120ms]">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2"><FileText className="w-5 h-5" /> Relatório por Cliente</CardTitle>
+            <CardTitle className="flex items-center gap-2 font-display"><FileText className="w-5 h-5" /> Relatório por Cliente</CardTitle>
             <CardDescription>Gere um relatório detalhado de um cliente específico</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">

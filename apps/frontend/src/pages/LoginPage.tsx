@@ -33,17 +33,17 @@ export default function LoginPage() {
     <div className="min-h-screen flex items-center justify-center bg-background p-4">
       <div className="w-full max-w-md space-y-6">
         {/* Logo */}
-        <div className="flex flex-col items-center gap-3">
-          <div className="flex items-center justify-center w-14 h-14 rounded-2xl bg-primary text-primary-foreground shadow-lg">
+        <div className="flex flex-col items-center gap-3 animate-fade-in-up">
+          <div className="flex items-center justify-center w-14 h-14 rounded-2xl bg-primary text-primary-foreground shadow-card">
             <Wallet className="w-7 h-7" />
           </div>
-          <h1 className="text-2xl font-bold tracking-tight">LoanTrack</h1>
+          <h1 className="text-2xl font-bold tracking-tight font-display">LoanTrack</h1>
           <p className="text-muted-foreground text-sm">Sistema de Gestão de Empréstimos</p>
         </div>
 
-        <Card className="shadow-xl border-0 bg-card/80 backdrop-blur-sm">
+        <Card className="shadow-card border bg-card/95 backdrop-blur-sm animate-fade-in-up [animation-delay:80ms] opacity-0 [animation-fill-mode:forwards]">
           <CardHeader className="space-y-1">
-            <CardTitle className="text-xl">Entrar</CardTitle>
+            <CardTitle className="text-xl font-display">Entrar</CardTitle>
             <CardDescription>Digite suas credenciais para acessar o sistema</CardDescription>
           </CardHeader>
           <CardContent>

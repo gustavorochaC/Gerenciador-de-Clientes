@@ -113,10 +113,10 @@ export default function ClientsPage() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 animate-fade-in">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">Clientes</h1>
+          <h1 className="text-2xl font-bold tracking-tight font-display">Clientes</h1>
           <p className="text-muted-foreground">Gerencie seus clientes</p>
         </div>
         <Button onClick={() => { resetForm(); setShowCreate(true); }}>
@@ -148,7 +148,7 @@ export default function ClientsPage() {
       </div>
 
       {/* Table */}
-      <Card>
+      <Card className="shadow-card animate-fade-in-up opacity-0 [animation-fill-mode:forwards] [animation-delay:80ms]">
         <CardContent className="p-0">
           {loading ? (
             <div className="p-6 space-y-3">
@@ -177,7 +177,7 @@ export default function ClientsPage() {
               </TableHeader>
               <TableBody>
                 {clients.map((c) => (
-                  <TableRow key={c.id} className="cursor-pointer" onClick={() => navigate(`/clients/${c.id}`)}>
+                  <TableRow key={c.id} className="cursor-pointer transition-colors duration-150 hover:bg-muted/60" onClick={() => navigate(`/clients/${c.id}`)}>
                     <TableCell className="font-medium">{c.name}</TableCell>
                     <TableCell className="hidden sm:table-cell text-muted-foreground">{maskCPFDisplay(c.cpf)}</TableCell>
                     <TableCell className="hidden md:table-cell text-muted-foreground">{c.phone}</TableCell>

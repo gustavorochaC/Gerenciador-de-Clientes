@@ -58,23 +58,23 @@ export default function DashboardPage() {
   }
 
   const kpis = [
-    { label: 'Capital em Aberto', value: formatCurrency(summary?.total_outstanding || 0), icon: Wallet, color: 'text-blue-500' },
-    { label: 'Recebido Este Mês', value: formatCurrency(summary?.received_this_month || 0), icon: DollarSign, color: 'text-emerald-500' },
-    { label: 'Clientes Ativos', value: summary?.active_clients || 0, icon: Users, color: 'text-violet-500' },
-    { label: 'Inadimplentes', value: summary?.defaulting_clients || 0, icon: UserX, color: 'text-red-500' },
+    { label: 'Capital em Aberto', value: formatCurrency(summary?.total_outstanding || 0), icon: Wallet, color: 'text-chart-1' },
+    { label: 'Recebido Este Mês', value: formatCurrency(summary?.received_this_month || 0), icon: DollarSign, color: 'text-chart-2' },
+    { label: 'Clientes Ativos', value: summary?.active_clients || 0, icon: Users, color: 'text-chart-3' },
+    { label: 'Inadimplentes', value: summary?.defaulting_clients || 0, icon: UserX, color: 'text-destructive' },
   ];
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 animate-fade-in">
       <div>
-        <h1 className="text-2xl font-bold tracking-tight">Dashboard</h1>
+        <h1 className="text-2xl font-bold tracking-tight font-display">Dashboard</h1>
         <p className="text-muted-foreground">Visão geral dos seus empréstimos</p>
       </div>
 
       {/* KPI Cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        {kpis.map((kpi) => (
-          <Card key={kpi.label} className="relative overflow-hidden">
+        {kpis.map((kpi, idx) => (
+          <Card key={kpi.label} className="relative overflow-hidden shadow-card animate-fade-in-up opacity-0 [animation-fill-mode:forwards]" style={{ animationDelay: `${idx * 50}ms` }}>
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
@@ -91,9 +91,9 @@ export default function DashboardPage() {
       </div>
 
       {/* Chart */}
-      <Card>
+      <Card className="shadow-card animate-fade-in-up opacity-0 [animation-fill-mode:forwards] [animation-delay:250ms]">
         <CardHeader>
-          <CardTitle>Recebimentos Mensais</CardTitle>
+          <CardTitle className="font-display">Recebimentos Mensais</CardTitle>
         </CardHeader>
         <CardContent>
           <ResponsiveContainer width="100%" height={300}>
@@ -117,9 +117,9 @@ export default function DashboardPage() {
       {/* Tables */}
       <div className="grid lg:grid-cols-2 gap-6">
         {/* Due Soon */}
-        <Card>
+        <Card className="shadow-card animate-fade-in-up opacity-0 [animation-fill-mode:forwards] [animation-delay:300ms]">
           <CardHeader className="flex flex-row items-center justify-between">
-            <CardTitle className="text-base">Parcelas Vencendo em Breve</CardTitle>
+            <CardTitle className="text-base font-display">Parcelas Vencendo em Breve</CardTitle>
             <Badge variant="info">{summary?.due_soon?.length || 0}</Badge>
           </CardHeader>
           <CardContent>
@@ -140,7 +140,7 @@ export default function DashboardPage() {
                 </TableHeader>
                 <TableBody>
                   {summary.due_soon.slice(0, 5).map((i: any) => (
-                    <TableRow key={i.id}>
+                    <TableRow key={i.id} className="transition-colors duration-150 hover:bg-muted/60">
                       <TableCell className="font-medium">{i.client_name}</TableCell>
                       <TableCell>{formatCurrency(Number(i.amount))}</TableCell>
                       <TableCell>{formatDate(i.due_date)}</TableCell>
@@ -160,9 +160,9 @@ export default function DashboardPage() {
         </Card>
 
         {/* Overdue */}
-        <Card>
+        <Card className="shadow-card animate-fade-in-up opacity-0 [animation-fill-mode:forwards] [animation-delay:350ms]">
           <CardHeader className="flex flex-row items-center justify-between">
-            <CardTitle className="text-base">Parcelas em Atraso</CardTitle>
+            <CardTitle className="text-base font-display">Parcelas em Atraso</CardTitle>
             <Badge variant="destructive">{summary?.overdue?.length || 0}</Badge>
           </CardHeader>
           <CardContent>
@@ -183,7 +183,7 @@ export default function DashboardPage() {
                 </TableHeader>
                 <TableBody>
                   {summary.overdue.slice(0, 5).map((i: any) => (
-                    <TableRow key={i.id}>
+                    <TableRow key={i.id} className="transition-colors duration-150 hover:bg-muted/60">
                       <TableCell className="font-medium">{i.client_name}</TableCell>
                       <TableCell>{formatCurrency(Number(i.amount))}</TableCell>
                       <TableCell>
@@ -207,9 +207,9 @@ export default function DashboardPage() {
 
       {/* Recent Alerts */}
       {alerts.length > 0 && (
-        <Card>
+        <Card className="shadow-card animate-fade-in-up opacity-0 [animation-fill-mode:forwards] [animation-delay:400ms]">
           <CardHeader className="flex flex-row items-center justify-between">
-            <CardTitle className="text-base">Alertas Recentes</CardTitle>
+            <CardTitle className="text-base font-display">Alertas Recentes</CardTitle>
             <Link to="/alerts">
               <Button variant="ghost" size="sm">Ver todos</Button>
             </Link>
@@ -219,9 +219,9 @@ export default function DashboardPage() {
               {alerts.map((alert: any) => (
                 <div key={alert.id} className="flex items-start gap-3 p-3 rounded-lg bg-muted/50">
                   {alert.type === 'overdue' ? (
-                    <AlertTriangle className="w-4 h-4 text-red-500 mt-0.5 shrink-0" />
+                    <AlertTriangle className="w-4 h-4 text-destructive mt-0.5 shrink-0" />
                   ) : (
-                    <Bell className="w-4 h-4 text-amber-500 mt-0.5 shrink-0" />
+                    <Bell className="w-4 h-4 text-chart-3 mt-0.5 shrink-0" />
                   )}
                   <div className="flex-1 min-w-0">
                     <p className="text-sm">{alert.message}</p>

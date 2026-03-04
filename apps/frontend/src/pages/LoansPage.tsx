@@ -144,10 +144,10 @@ export default function LoansPage() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 animate-fade-in">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">Empréstimos</h1>
+          <h1 className="text-2xl font-bold tracking-tight font-display">Empréstimos</h1>
           <p className="text-muted-foreground">Gerencie seus empréstimos</p>
         </div>
         <Button onClick={() => { resetForm(); setShowCreate(true); }}>
@@ -175,7 +175,7 @@ export default function LoansPage() {
       </div>
 
       {/* Table */}
-      <Card>
+      <Card className="shadow-card animate-fade-in-up opacity-0 [animation-fill-mode:forwards] [animation-delay:80ms]">
         <CardContent className="p-0">
           {loading ? (
             <div className="p-6 space-y-3">{[...Array(5)].map((_, i) => <Skeleton key={i} className="h-12 w-full" />)}</div>
@@ -202,7 +202,7 @@ export default function LoansPage() {
                 {loans.map((loan) => {
                   const s = statusConfig[loan.status] || statusConfig.active;
                   return (
-                    <TableRow key={loan.id} className="cursor-pointer" onClick={() => navigate(`/loans/${loan.id}`)}>
+                    <TableRow key={loan.id} className="cursor-pointer transition-colors duration-150 hover:bg-muted/60" onClick={() => navigate(`/loans/${loan.id}`)}>
                       <TableCell className="font-medium">{loan.client_name}</TableCell>
                       <TableCell>{formatCurrency(Number(loan.principal_amount))}</TableCell>
                       <TableCell className="hidden md:table-cell">{formatCurrency(Number(loan.total_amount))}</TableCell>

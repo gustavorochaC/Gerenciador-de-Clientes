@@ -47,10 +47,10 @@ export default function AlertsPage() {
   const unreadCount = alerts.filter(a => !a.is_read).length;
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 animate-fade-in">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">Alertas</h1>
+          <h1 className="text-2xl font-bold tracking-tight font-display">Alertas</h1>
           <p className="text-muted-foreground">{unreadCount} alertas não lidos</p>
         </div>
         {unreadCount > 0 && (
@@ -61,7 +61,7 @@ export default function AlertsPage() {
       </div>
 
       {alerts.length === 0 ? (
-        <Card>
+        <Card className="shadow-card animate-fade-in-up opacity-0 [animation-fill-mode:forwards]">
           <CardContent className="py-16 text-center">
             <Bell className="w-16 h-16 mx-auto text-muted-foreground/30 mb-4" />
             <h3 className="text-lg font-semibold mb-1">Nenhum alerta</h3>
@@ -71,10 +71,10 @@ export default function AlertsPage() {
       ) : (
         <div className="space-y-3">
           {alerts.map((alert) => (
-            <Card key={alert.id} className={`transition-colors ${!alert.is_read ? 'border-l-4 border-l-primary' : 'opacity-70'}`}>
+            <Card key={alert.id} className={`shadow-card transition-colors duration-150 hover:shadow-dropdown ${!alert.is_read ? 'border-l-4 border-l-primary' : 'opacity-70'}`}>
               <CardContent className="p-4">
                 <div className="flex items-start gap-3">
-                  <div className={`mt-0.5 shrink-0 ${alert.type === 'overdue' ? 'text-red-500' : 'text-amber-500'}`}>
+                  <div className={`mt-0.5 shrink-0 ${alert.type === 'overdue' ? 'text-destructive' : 'text-chart-3'}`}>
                     {alert.type === 'overdue' ? <AlertTriangle className="w-5 h-5" /> : <Bell className="w-5 h-5" />}
                   </div>
                   <div className="flex-1 min-w-0">

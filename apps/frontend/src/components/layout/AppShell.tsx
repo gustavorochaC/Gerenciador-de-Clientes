@@ -75,7 +75,7 @@ export default function AppShell() {
           <Wallet className="w-5 h-5" />
         </div>
         {!sidebarCollapsed && (
-          <span className="text-lg font-bold tracking-tight">LoanTrack</span>
+          <span className="text-lg font-bold tracking-tight font-display">LoanTrack</span>
         )}
       </div>
 
@@ -91,7 +91,7 @@ export default function AppShell() {
               key={item.path}
               to={item.path}
               onClick={() => setMobileOpen(false)}
-              className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all duration-200 hover:bg-accent ${
+              className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors duration-200 hover:bg-accent ${
                 isActive
                   ? 'bg-accent text-accent-foreground shadow-sm'
                   : 'text-muted-foreground hover:text-foreground'
@@ -158,7 +158,7 @@ export default function AppShell() {
       {/* Main content */}
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
         {/* Header */}
-        <header className="flex items-center justify-between h-14 px-4 lg:px-6 border-b bg-card/50 backdrop-blur-sm shrink-0">
+        <header className="flex items-center justify-between h-14 px-4 lg:px-6 border-b bg-card/50 backdrop-blur-sm shrink-0 shadow-card">
           <div className="flex items-center gap-3">
             {/* Mobile menu button */}
             <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
@@ -174,7 +174,7 @@ export default function AppShell() {
 
             {/* Breadcrumb */}
             <div className="flex items-center gap-2 text-sm">
-              <span className="text-muted-foreground">LoanTrack</span>
+              <span className="text-muted-foreground font-display">LoanTrack</span>
               <span className="text-muted-foreground">/</span>
               <span className="font-medium">{getBreadcrumb()}</span>
             </div>
