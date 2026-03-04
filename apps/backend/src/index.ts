@@ -80,9 +80,41 @@ app.use('/api/alerts', alertsRouter);
 app.use('/api/reports', reportsRouter);
 app.use('/api/transactions', transactionsRouter);
 
-// Health check
-app.get('/api/health', (_req, res) => {
-  res.json({ status: 'ok', timestamp: new Date().toISOString() });
+// Health check: HTML no navegador, JSON para APIs/monitoramento
+app.get('/api/health', (req, res) => {
+  const timestamp = new Date().toISOString();
+  if (req.accepts('html')) {
+    res.type('text/html').send(`
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Status - API</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✓</text></svg>">
+  <style>
+    * { box-sizing: border-box; }
+    body { font-family: system-ui, sans-serif; margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center; background: #0f172a; color: #e2e8f0; }
+    .card { text-align: center; padding: 2rem; }
+    .badge { display: inline-block; background: #22c55e; color: #fff; padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.875rem; margin-bottom: 1rem; }
+    .time { color: #94a3b8; font-size: 0.875rem; margin-top: 1rem; }
+    a { color: #38bdf8; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <span class="badge">OK</span>
+    <p style="margin:0;font-size:1.125rem;">API em funcionamento</p>
+    <p class="time">${timestamp}</p>
+    <p style="margin-top:1.5rem;"><a href="/">← Voltar</a></p>
+  </div>
+</body>
+</html>
+    `);
+    return;
+  }
+  res.json({ status: 'ok', timestamp });
 });
 
 // Endpoint para Vercel Cron: executa o job de alertas (protegido por CRON_SECRET)
