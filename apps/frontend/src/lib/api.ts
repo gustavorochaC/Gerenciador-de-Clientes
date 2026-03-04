@@ -13,8 +13,13 @@ import {
 // Set this to true to use the mock API instead of the real backend
 const USE_MOCK_API = false;
 
+// Em produção (Vercel etc.): use VITE_API_URL. Em dev: /api (proxy do Vite).
+const baseURL = import.meta.env.VITE_API_URL
+  ? `${import.meta.env.VITE_API_URL.replace(/\/$/, '')}/api`
+  : '/api';
+
 const api = axios.create({
-  baseURL: '/api',
+  baseURL,
   headers: { 'Content-Type': 'application/json' },
 });
 
@@ -94,5 +99,15 @@ export const reportsApi = USE_MOCK_API ? mockReportsApi : {
 export const transactionsApi = USE_MOCK_API ? mockTransactionsApi : {
   list: (params?: any) => api.get('/transactions', { params }),
 };
+
+/** Extrai mensagem de erro da resposta da API (evita renderizar objeto no React). */
+export function getApiErrorMessage(err: any, fallback = 'Erro na requisição'): string {
+  if (!err) return fallback;
+  const d = err.response?.data;
+  if (typeof d?.error === 'string') return d.error;
+  if (typeof d?.message === 'string') return d.message;
+  if (typeof err.message === 'string') return err.message;
+  return fallback;
+}
 
 export default api;

@@ -7,6 +7,7 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Wallet, Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
+import { getApiErrorMessage } from '@/lib/api';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -23,7 +24,7 @@ export default function LoginPage() {
       toast.success('Login realizado com sucesso!');
       navigate('/');
     } catch (err: any) {
-      toast.error(err.response?.data?.error || 'Erro ao fazer login');
+      toast.error(getApiErrorMessage(err, 'Erro ao fazer login. Verifique se a URL da API está configurada (VITE_API_URL).'));
     } finally {
       setLoading(false);
     }
