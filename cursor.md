@@ -1,8 +1,8 @@
-# Projeto LoanTrack — Guia para o Cursor
+# Projeto Rocha Fashion — Guia para o Cursor
 
 ## Visão geral
 
-**LoanTrack** é um monorepo para controle de empréstimos, com frontend React e backend Node/Express, usando Supabase como banco e autenticação.
+**Rocha Fashion** é um monorepo para controle de empréstimos, com frontend React e backend Node/Express, usando Supabase como banco e autenticação.
 
 - **Nome do pacote raiz:** `loantrack`
 - **Apps:** `apps/frontend`, `apps/backend`

@@ -9,7 +9,7 @@ export default {
     extend: {
       fontFamily: {
         sans: ['Satoshi', 'system-ui', '-apple-system', 'sans-serif'],
-        display: ['Fraunces', 'Georgia', 'serif'],
+        display: ['Satoshi', 'system-ui', '-apple-system', 'sans-serif'],
       },
       boxShadow: {
         card: 'var(--shadow-card)',

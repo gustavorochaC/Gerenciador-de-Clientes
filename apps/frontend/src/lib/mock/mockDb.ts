@@ -2,7 +2,7 @@ export const initialMockData = {
   users: [
     {
       id: "usr_123",
-      email: "admin@loantrack.com",
+      email: "admin@rochafashion.com",
       name: "Administrador",
       password: "admin", // just for mock login
     }
@@ -128,7 +128,7 @@ class MockDatabase {
   }
 
   private load() {
-    const saved = localStorage.getItem('loantrack_mock_db');
+    const saved = localStorage.getItem('rochafashion_mock_db');
     if (saved) {
       try {
         const parsed = JSON.parse(saved);
@@ -150,7 +150,7 @@ class MockDatabase {
   }
 
   private save() {
-    localStorage.setItem('loantrack_mock_db', JSON.stringify(this.data));
+    localStorage.setItem('rochafashion_mock_db', JSON.stringify(this.data));
   }
 
   public reset() {

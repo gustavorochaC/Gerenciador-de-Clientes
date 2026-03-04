@@ -1,4 +1,4 @@
-# LoanTrack 💰
+# Rocha Fashion 💰
 
 Sistema de Gestão de Empréstimos Pessoais — uma aplicação SaaS completa para gerenciar empréstimos a clientes.
 

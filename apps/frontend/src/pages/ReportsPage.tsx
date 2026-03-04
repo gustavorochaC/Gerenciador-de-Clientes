@@ -27,7 +27,7 @@ export default function ReportsPage() {
   const generatePdfHeader = (doc: jsPDF, title: string) => {
     doc.setFontSize(18);
     doc.setFont('helvetica', 'bold');
-    doc.text('LoanTrack', 20, 20);
+    doc.text('Rocha Fashion', 20, 20);
     doc.setFontSize(10);
     doc.setFont('helvetica', 'normal');
     doc.text(title, 20, 28);
@@ -44,7 +44,7 @@ export default function ReportsPage() {
       doc.setFontSize(8);
       doc.setTextColor(150);
       doc.text(`Página ${i} de ${pageCount}`, 105, 290, { align: 'center' });
-      doc.text('Documento confidencial — LoanTrack', 105, 295, { align: 'center' });
+      doc.text('Documento confidencial — Rocha Fashion', 105, 295, { align: 'center' });
     }
   };
 
@@ -104,7 +104,7 @@ export default function ReportsPage() {
       }
 
       addFooter(doc);
-      doc.save('relatorio-geral-loantrack.pdf');
+      doc.save('relatorio-geral-rocha-fashion.pdf');
       toast.success('Relatório geral gerado com sucesso!');
     } catch { toast.error('Erro ao gerar relatório'); }
     finally { setGeneratingGeneral(false); }

@@ -45,7 +45,7 @@ app.get('/api/health', (_req, res) => {
 startAlertCron();
 
 app.listen(PORT, () => {
-  console.log(`🚀 LoanTrack API running on port ${PORT}`);
+  console.log(`🚀 Rocha Fashion API running on port ${PORT}`);
 });
 
 export default app;

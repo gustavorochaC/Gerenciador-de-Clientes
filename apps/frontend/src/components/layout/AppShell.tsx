@@ -64,7 +64,7 @@ export default function AppShell() {
     if (breadcrumbLabels[path]) return breadcrumbLabels[path];
     if (path.startsWith('/clients/')) return 'Detalhes do Cliente';
     if (path.startsWith('/loans/')) return 'Detalhes do Empréstimo';
-    return 'LoanTrack';
+    return 'Rocha Fashion';
   };
 
   const SidebarContent = () => (
@@ -75,7 +75,7 @@ export default function AppShell() {
           <Wallet className="w-5 h-5" />
         </div>
         {!sidebarCollapsed && (
-          <span className="text-lg font-bold tracking-tight font-display">LoanTrack</span>
+          <span className="text-lg font-bold tracking-tight font-display">Rocha Fashion</span>
         )}
       </div>
 
@@ -174,7 +174,7 @@ export default function AppShell() {
 
             {/* Breadcrumb */}
             <div className="flex items-center gap-2 text-sm">
-              <span className="text-muted-foreground font-display">LoanTrack</span>
+              <span className="text-muted-foreground font-display">Rocha Fashion</span>
               <span className="text-muted-foreground">/</span>
               <span className="font-medium">{getBreadcrumb()}</span>
             </div>

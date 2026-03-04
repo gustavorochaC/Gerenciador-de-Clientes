@@ -19,7 +19,7 @@ export const mockAuthApi = {
   },
   me: async () => {
     await delay(300);
-    const user = mockDb.getUserByEmail('admin@loantrack.com');
+    const user = mockDb.getUserByEmail('admin@rochafashion.com');
     if (user) return createResponse(user);
     throw new Error('Unauthorized');
   },

@@ -37,7 +37,7 @@ export default function LoginPage() {
           <div className="flex items-center justify-center w-14 h-14 rounded-2xl bg-primary text-primary-foreground shadow-card">
             <Wallet className="w-7 h-7" />
           </div>
-          <h1 className="text-2xl font-bold tracking-tight font-display">LoanTrack</h1>
+          <h1 className="text-2xl font-bold tracking-tight font-display">Rocha Fashion</h1>
           <p className="text-muted-foreground text-sm">Sistema de Gestão de Empréstimos</p>
         </div>
 
@@ -53,7 +53,7 @@ export default function LoginPage() {
                 <Input
                   id="email"
                   type="email"
-                  placeholder="admin@loantrack.com"
+                  placeholder="admin@rochafashion.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
