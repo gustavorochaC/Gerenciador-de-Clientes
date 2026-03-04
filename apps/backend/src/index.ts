@@ -11,7 +11,7 @@ import { dashboardRouter } from './modules/dashboard/routes';
 import { alertsRouter } from './modules/alerts/routes';
 import { reportsRouter } from './modules/reports/routes';
 import { transactionsRouter } from './modules/transactions/routes';
-import { startAlertCron } from './jobs/alertCron';
+import { startAlertCron, runAlertJob } from './jobs/alertCron';
 
 // Carrega .env na raiz do projeto (dev); em produção as variáveis vêm do ambiente (Coolify, etc.)
 dotenv.config({ path: path.resolve(__dirname, '../../.env') });
@@ -28,6 +28,15 @@ app.use(cors({
 }));
 app.use(express.json());
 
+// Raiz: evita 404 ao acessar a URL do backend (ex.: na Vercel)
+app.get('/', (_req, res) => {
+  res.json({
+    service: 'Gerenciador de Clientes API',
+    status: 'ok',
+    health: '/api/health',
+  });
+});
+
 // Routes
 app.use('/api/auth', authRouter);
 app.use('/api/clients', clientsRouter);
@@ -43,11 +52,32 @@ app.get('/api/health', (_req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
-// Start cron job
-startAlertCron();
+// Endpoint para Vercel Cron: executa o job de alertas (protegido por CRON_SECRET)
+// GET/POST: Vercel Cron envia GET com Authorization: Bearer <CRON_SECRET>
+const cronHandler = async (req: express.Request, res: express.Response) => {
+  const secret = process.env.CRON_SECRET;
+  const provided = req.headers['authorization']?.replace('Bearer ', '') ?? req.query.secret;
+  if (!secret || provided !== secret) {
+    res.status(401).json({ error: 'Unauthorized' });
+    return;
+  }
+  try {
+    await runAlertJob();
+    res.json({ ok: true, message: 'Alert job completed' });
+  } catch (err) {
+    console.error('Cron run-alerts error:', err);
+    res.status(500).json({ error: 'Job failed' });
+  }
+};
+app.get('/api/cron/run-alerts', cronHandler);
+app.post('/api/cron/run-alerts', cronHandler);
 
-app.listen(PORT, () => {
-  console.log(`🚀 Rocha Fashion API running on port ${PORT}`);
-});
+// Na Vercel não usamos listen nem node-cron (cron é via Vercel Cron → POST /api/cron/run-alerts)
+if (!process.env.VERCEL) {
+  startAlertCron();
+  app.listen(PORT, () => {
+    console.log(`🚀 Rocha Fashion API running on port ${PORT}`);
+  });
+}
 
 export default app;
