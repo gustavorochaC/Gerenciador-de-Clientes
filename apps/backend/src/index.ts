@@ -37,6 +37,9 @@ app.get('/', (_req, res) => {
   });
 });
 
+// Evita 404 no console quando o navegador pede favicon.ico
+app.get('/favicon.ico', (_req, res) => res.status(204).end());
+
 // Routes
 app.use('/api/auth', authRouter);
 app.use('/api/clients', clientsRouter);
