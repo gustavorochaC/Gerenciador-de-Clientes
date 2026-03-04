@@ -28,13 +28,43 @@ app.use(cors({
 }));
 app.use(express.json());
 
-// Raiz: evita 404 ao acessar a URL do backend (ex.: na Vercel)
+// Raiz: página HTML para quem abre a URL no navegador (não JSON)
+const frontendUrl = process.env.FRONTEND_URL || '';
 app.get('/', (_req, res) => {
-  res.json({
-    service: 'Gerenciador de Clientes API',
-    status: 'ok',
-    health: '/api/health',
-  });
+  res.type('text/html').send(`
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gerenciador de Clientes - API</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✓</text></svg>">
+  <style>
+    * { box-sizing: border-box; }
+    body { font-family: system-ui, sans-serif; margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center; background: #0f172a; color: #e2e8f0; }
+    .card { text-align: center; padding: 2rem; max-width: 420px; }
+    h1 { font-size: 1.25rem; margin-bottom: 0.5rem; color: #fff; }
+    p { color: #94a3b8; margin: 1rem 0; }
+    a { color: #38bdf8; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .badge { display: inline-block; background: #22c55e; color: #fff; padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.875rem; margin-bottom: 1rem; }
+    .links { margin-top: 1.5rem; }
+    .links a { display: inline-block; margin: 0 0.5rem; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <span class="badge">Online</span>
+    <h1>Gerenciador de Clientes</h1>
+    <p>API em funcionamento.</p>
+    <div class="links">
+      <a href="/api/health">Ver status da API</a>
+      ${frontendUrl ? ` · <a href="${frontendUrl}">Abrir aplicação</a>` : ''}
+    </div>
+  </div>
+</body>
+</html>
+  `);
 });
 
 // Evita 404 no console quando o navegador pede favicon.ico
